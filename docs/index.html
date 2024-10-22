@@ -8,6 +8,40 @@
     <link rel="stylesheet" type="text/css" href="index.css" />
     <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+    <script>
+      // API kulcs titkosítása és ellenőrzése
+      const publicKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAm2NcVjywxRI2HoMubeWW
+5busUOLdR7rBToSdAvJEqjUo2hhJ4/CN3euL2e7rCsVfunLWrrUT52MikKYrGSei
++fdHmAqUE/YjQRrTIK0d8qerGddRoi2n1njSCugA/utX7vXoFwy5RtOFEh5JBUYW
+csHPSk7k0OkbTa9lVLA/N7yYgv2EbN1hOaYHHDbKtE+oRxpsewFR/A1U7fhHvTcC
+NT/hMVdRvFxj8q+tAdTdcoWDpnRJlCHVEHPQmw7uTi3Hs7pmEQB4AjJEujyayFIg
+NXd/khdLobFKmmH/sNh2ciFvnU4+ojms8iGZKgvd78T7f59qqyu25cfoSTcRJdtw
+9QIDAQAB`; // Publikus kulcs
+      const privateKey = new URLSearchParams(window.location.search).get('api_key'); // Privát kulcs a URL paraméterből
+
+      function validateApiKey() {
+        const apiKey = prompt("Kérlek add meg az API kulcsot:");
+        
+        // Egyszerű titkosítási logika (példa, nem biztonságos)
+        const encryptedKey = encrypt(apiKey, publicKey); // Titkosítás a publikus kulccsal
+
+        // Ellenőrizd a titkosított kulcsot
+        if (encryptedKey === privateKey) {
+          console.log("API kulcs érvényes.");
+          // További inicializálás itt
+        } else {
+          alert("Érvénytelen API kulcs!");
+          window.location.reload(); // Újratöltés érvénytelen kulcs esetén
+        }
+      }
+
+      function encrypt(data, key) {
+        // Egyszerű titkosítási példa (csak demonstrációs célokra)
+        return btoa(data + key); // Base64 kódolás (nem biztonságos)
+      }
+
+      window.onload = validateApiKey; // Az oldal betöltődésekor hívja meg
+    </script>
   </head>
 
   <body>
